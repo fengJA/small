@@ -12,5 +12,39 @@
     <!--所有公共api、bean、异常、模型等 -->
     <artifactId>small-api</artifactId>
 
+    <!-- 导入公共使用的包 -->
+    <dependencies>
+        <dependency>
+            <groupId>small-common</groupId>
+            <artifactId>small-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 引入Dubbo -->
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>0.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.1.0</version>
+            <!--可选依赖，只是为了防止工程mp的注解报错问题-->
+            <!--<optional>true</optional>-->
+        </dependency>
+
+        <!-- 管理多数据源 -->
+        <dependency>
+            <groupId>io.shardingjdbc</groupId>
+            <artifactId>sharding-jdbc-core</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
+
+
+    </dependencies>
+
 
 </project>
