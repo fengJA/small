@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.fj.small.admin.pms.vo.PmsBrandParam;
 import com.fj.small.pms.service.BrandService;
 import com.fj.small.to.CommonResult;
+import com.fj.small.vo.PageInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * 品牌功能Controller
  */
+@CrossOrigin
 @RestController
 @Api(tags = "PmsBrandController",description = "商品品牌管理")
 @RequestMapping("/brand")
@@ -69,9 +71,9 @@ public class PmsBrandController {
         CommonResult commonResult = new CommonResult();
 
         //TODO 根据品牌名称分页获取品牌列表
+        PageInfoVo vo = brandService.brandPageInfo(keyword,pageNum,pageSize);
 
-
-        return commonResult;
+        return commonResult.success(vo);
     }
 
     @ApiOperation(value = "根据编号查询品牌信息")

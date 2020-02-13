@@ -1,3 +1,12 @@
 商品服务  208XX
 用户服务  209XX
 营销服务  210XX
+
+
+日志整合都需要引入jar包
+<!--引入logback整合logstash的第三方jar包-->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>5.3</version>
+        </dependency>
