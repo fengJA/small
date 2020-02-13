@@ -10,10 +10,12 @@ import com.fj.small.ums.entity.Admin;
 import com.fj.small.ums.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ import java.util.Map;
 @RestController
 @Api(tags = "AdminController", description = "后台用户管理")
 @RequestMapping("/admin")
+@Slf4j
 public class UmsAdminController {
     @Reference
     private AdminService adminService;
@@ -42,8 +45,21 @@ public class UmsAdminController {
     @PostMapping(value = "/register")
     public Object register(@RequestBody UmsAdminParam umsAdminParam, BindingResult result) {
         Admin admin = null;
-        //TODO 完成注册功能
 
+        // BindingResult完成校验功能,将如下信息整合到aop中同一处理
+        /*int errorCount = result.getErrorCount();
+        if (errorCount > 0){
+            List<FieldError> fieldErrors = result.getFieldErrors();
+            fieldErrors.forEach((fieldError) -> {
+                String field = fieldError.getField();
+                log.debug("属性：{}，传来的值是：{}，校验出错。出错的提示消息：{}",
+                        field,fieldError.getRejectedValue(),fieldError.getDefaultMessage());
+            });
+            return new CommonResult().validateFailed(result);
+        }else {
+            //TODO 完成注册功能
+        }*/
+        log.debug("需要注册的用户详情：{}",umsAdminParam);
         return new CommonResult().success(admin);
     }
 

@@ -2,6 +2,7 @@ package com.fj.small.pms.service;
 
 import com.fj.small.pms.entity.Brand;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fj.small.vo.PageInfoVo;
 
 /**
  * <p>
@@ -13,4 +14,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BrandService extends IService<Brand> {
 
+    /**
+     * 查询品牌列表
+     * @param keyword
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageInfoVo brandPageInfo(String keyword, Integer pageNum, Integer pageSize);
 }
