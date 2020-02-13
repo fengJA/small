@@ -1,6 +1,7 @@
 package com.fj.small.admin.ums.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fj.small.admin.ums.vo.UmsAdminLoginParam;
 import com.fj.small.admin.ums.vo.UmsAdminParam;
 import com.fj.small.admin.utils.JwtTokenUtil;
@@ -50,9 +51,9 @@ public class UmsAdminController {
     @PostMapping(value = "/login")
     public Object login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) {
         //去数据库登陆
-       // Admin admin = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
+        Admin admin = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
 
-        Admin admin = null;
+//        Admin admin = null;
         //登陆成功生成token，此token携带基本用户信息，以后就不用去数据库了
         String token = jwtTokenUtil.generateToken(admin);
         if (token == null) {
@@ -93,10 +94,16 @@ public class UmsAdminController {
     @ResponseBody
     public Object getAdminInfo(HttpServletRequest request) {
         String oldToken = request.getHeader(tokenHeader);
-        String userName = jwtTokenUtil.getUserNameFromToken(oldToken);
+        // 因为oldToken中携带了tokenHead（即前缀Bearer），需要截掉
+        String userName = jwtTokenUtil.getUserNameFromToken(oldToken.substring(tokenHead.length()));
 
-       // Admin umsAdmin = adminService.getOne(new QueryWrapper<Admin>().eq("username",userName));
-        Admin umsAdmin = null;
+        /**
+         * getOne()是mybatis-plus自动生成的，里面带了泛型，dubbo没办法直接调用mp中带泛型的service
+         * mp自动生成可能有兼容问题，最好不要用远程调用
+         */
+//        Admin umsAdmin = adminService.getOne(new QueryWrapper<Admin>().eq("username",userName));
+
+        Admin umsAdmin = adminService.getUserInfo(userName);
         Map<String, Object> data = new HashMap<>();
         data.put("username", umsAdmin.getUsername());
         data.put("roles", new String[]{"TEST"});
