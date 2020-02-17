@@ -1,10 +1,11 @@
 package com.fj.small.pms.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fj.small.pms.entity.ProductAttributeCategory;
 import com.fj.small.pms.mapper.ProductAttributeCategoryMapper;
 import com.fj.small.pms.service.ProductAttributeCategoryService;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
  * @since 2020-01-22
  */
 @Service
+@Component
 public class ProductAttributeCategoryServiceImpl extends ServiceImpl<ProductAttributeCategoryMapper, ProductAttributeCategory> implements ProductAttributeCategoryService {
 
 }

@@ -2,6 +2,7 @@ package com.fj.small.ums.mapper;
 
 import com.fj.small.ums.entity.AdminPermissionRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author fj
  * @since 2020-01-22
  */
+@Mapper
 public interface AdminPermissionRelationMapper extends BaseMapper<AdminPermissionRelation> {
 
 }
