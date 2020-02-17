@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.fj.small.admin.pms.vo.PmsProductAttributeParam;
 import com.fj.small.pms.service.ProductAttributeService;
 import com.fj.small.to.CommonResult;
+import com.fj.small.vo.PageInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,7 +32,10 @@ public class PmsProductAttributeController {
                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                           @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         //TODO 根据分类查询属性列表或参数列表
-        return new CommonResult().success(null);
+        // 查出这个分类属性下面所有的销售属性和基本参数
+        PageInfoVo pageInfoVo = productAttributeService.getCatalogAttribute(cid,type,pageSize,pageNum);
+
+        return new CommonResult().success(pageInfoVo);
     }
 
     @ApiOperation("添加商品属性信息")

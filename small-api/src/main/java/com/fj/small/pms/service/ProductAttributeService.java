@@ -2,6 +2,7 @@ package com.fj.small.pms.service;
 
 import com.fj.small.pms.entity.ProductAttribute;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fj.small.vo.PageInfoVo;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ProductAttributeService extends IService<ProductAttribute> {
 
+    PageInfoVo getCatalogAttribute(Long cid, Integer type, Integer pageSize, Integer pageNum);
 }
