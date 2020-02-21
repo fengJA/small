@@ -6,13 +6,20 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fj.small.pms.entity.Product;
+import com.fj.small.pms.entity.ProductAttributeValue;
+import com.fj.small.pms.mapper.ProductAttributeMapper;
+import com.fj.small.pms.mapper.ProductAttributeValueMapper;
 import com.fj.small.pms.mapper.ProductMapper;
 import com.fj.small.pms.service.ProductService;
 import com.fj.small.vo.PageInfoVo;
+import com.fj.small.vo.product.PmsProductParam;
 import com.fj.small.vo.product.PmsProductQueryParam;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * <p>
@@ -28,6 +35,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     @Autowired
     ProductMapper productMapper;
+
+    @Autowired
+    ProductAttributeValueMapper productAttributeValueMapper;
 
     @Override
     public PageInfoVo productPageInfo(PmsProductQueryParam param) {
@@ -64,5 +74,21 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
 
         return pageInfoVo;
+    }
+
+    @Override
+    public void saveProduct(PmsProductParam productParam) {
+        //1）、pms_product：保存商品基本信息
+        Product product = new Product();
+        BeanUtils.copyProperties(productParam,product); // 工具类，将productParam里面的属性值拷贝到Product中，只要字段一样，就拷贝
+        productMapper.insert(product);
+
+        //2）、pms_product_attribute_value：保存这个商品对应的所有属性的值
+        List<ProductAttributeValue> attributeValueList = productParam.getProductAttributeValueList();
+        for (ProductAttributeValue attributeValue : attributeValueList) {
+            productAttributeValueMapper.insert(attributeValue);
+        }
+
+
     }
 }

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,22 @@ import java.util.Date;
 @Slf4j
 public class OssCompent {
 
+	/*@Value("${aliyun.oss.policy.expire}")
+	private int ALIYUN_OSS_EXPIRE;
+	@Value("${aliyun.oss.maxSize}")
+	private int ALIYUN_OSS_MAX_SIZE;
+	@Value("${aliyun.oss.bucketName}")
+	private String ALIYUN_OSS_BUCKET_NAME;
+	@Value("${aliyun.oss.endpoint}")
+	private String ALIYUN_OSS_ENDPOINT;
+	@Value("${aliyun.oss.dir.prefix}")
+	private String ALIYUN_OSS_DIR_PREFIX;
+
+	@Value("${aliyun.oss.accessKeyId}")
+	private String ALIYUN_OSS_KEY;
+	@Value("${aliyun.oss.accessKeySecret}")
+	private String ALIYUN_OSS_SECRET_KEY;*/
+
 	@Value("${aliyun.oss.policy.expire}")
 	private int ALIYUN_OSS_EXPIRE;
 	@Value("${aliyun.oss.maxSize}")
@@ -33,6 +50,11 @@ public class OssCompent {
 	private String ALIYUN_OSS_ENDPOINT;
 	@Value("${aliyun.oss.dir.prefix}")
 	private String ALIYUN_OSS_DIR_PREFIX;
+
+	@Value("${aliyun.oss.accessKeyId}")
+	private String ALIYUN_OSS_KEY;
+	@Value("${aliyun.oss.accessKeySecret}")
+	private String ALIYUN_OSS_SECRET_KEY;
 
 
 
@@ -73,6 +95,14 @@ public class OssCompent {
 			log.error("签名生成失败", e);
 		}
 		return result;
+	}
+
+	@Bean
+	public OSSClient ossClient(){
+
+		//public OSSClient(String endpoint, String accessKeyId, String secretAccessKey)
+		OSSClient ossClient = new OSSClient(ALIYUN_OSS_ENDPOINT, ALIYUN_OSS_KEY, ALIYUN_OSS_SECRET_KEY);
+		return ossClient;
 	}
 
 }

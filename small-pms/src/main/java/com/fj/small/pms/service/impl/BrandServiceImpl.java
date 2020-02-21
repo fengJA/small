@@ -31,7 +31,8 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements
     @Override
     public PageInfoVo brandPageInfo(String keyword, Integer pageNum, Integer pageSize) {
         QueryWrapper<Brand> name = null;
-        if (StringUtils.isEmpty(keyword)){
+        if (!StringUtils.isEmpty(keyword)){
+            // 模糊查询自动拼接%号
             name = new QueryWrapper<Brand>().like("name", keyword);
         }
 

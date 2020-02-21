@@ -1,10 +1,10 @@
 package com.fj.small.admin.pms.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.fj.small.admin.pms.vo.PmsProductParam;
 import com.fj.small.pms.service.ProductService;
 import com.fj.small.to.CommonResult;
 import com.fj.small.vo.PageInfoVo;
+import com.fj.small.vo.product.PmsProductParam;
 import com.fj.small.vo.product.PmsProductQueryParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +31,7 @@ public class PmsProductController {
     public Object create(@RequestBody PmsProductParam productParam,
                          BindingResult bindingResult) {
         //TODO 查询所有一级分类及子分类
+        productService.saveProduct(productParam);
         return new CommonResult().success(null);
     }
 
